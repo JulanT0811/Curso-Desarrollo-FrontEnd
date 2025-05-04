@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis Tareas</title>
+  <style>
+    body {
+      background-color: #fef9f9;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      color: #5444ff;
+    }
+    input[type="text"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 2px solid #bac5ff;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5444ff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    ul {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #ffecec;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .completada {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .acciones button {
+      margin-left: 5px;
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Mis Tareas</h2>
+    <input type="text" id="tareaInput" placeholder="Escribe una tarea...">
+    <button onclick="agregarTarea()">Agregar tarea</button>
+    <ul id="listaTareas"></ul>
+  </div>
+
+  <script>
+    function agregarTarea() {
+      const input = document.getElementById('tareaInput');
+      const texto = input.value.trim();
+      if (texto === '') return;
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = texto;
+
+      const div = document.createElement('div');
+      div.className = 'acciones';
+
+      const btnCompletar = document.createElement('button');
+      btnCompletar.textContent = 'Completar';
+      btnCompletar.onclick = () => span.classList.toggle('completada');
+
+      const btnEliminar = document.createElement('button');
+      btnEliminar.textContent = 'Eliminar';
+      btnEliminar.onclick = () => li.remove();
+
+      div.appendChild(btnCompletar);
+      div.appendChild(btnEliminar);
+
+      li.appendChild(span);
+      li.appendChild(div);
+
+      document.getElementById('listaTareas').appendChild(li);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
